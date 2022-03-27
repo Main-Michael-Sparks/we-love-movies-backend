@@ -1,5 +1,13 @@
 const knex = require("../db/connection");
 
+// query the db for a movie based on movie_id
+function read(movieId) {
+    return knex("movies")
+        .select("*")
+        .where({ "movie_id": movieId })
+        .first();
+};
+
 // if req.query.is_movies is true query the db for movies that are showing otherwise select all movies
 function list(query) {
    if (query){
@@ -15,5 +23,6 @@ function list(query) {
 }
 
 module.exports = {
-    list
+    list,
+    read
 }
