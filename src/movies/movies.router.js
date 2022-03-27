@@ -3,9 +3,10 @@ const controller = require("./movies.controller");
 const methodNotAllowed = require("../errors/methodNotAllowed");
 
 
-/* next route to build
+// route handler for /movies/:movieId/theaters
 router.route("/:movieId/theaters")
-*/
+    .get(controller.read)
+    .all(methodNotAllowed);
 
 // route handler for /movies/:movieId
 router.route("/:movieId")

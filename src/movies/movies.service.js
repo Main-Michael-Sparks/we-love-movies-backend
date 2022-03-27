@@ -1,15 +1,26 @@
 const knex = require("../db/connection");
 
 // query the db for a movie based on movie_id
-function read(movieId) {
+function read(movieId, theaters = false) {
+    
+    if (theaters) {
+        return knex("movies as m")
+        .join("movies_theaters as mt", "m.movie_id", "mt.movie_id")
+        .join("theaters as t", "mt.theater_id", "t.theater_id")
+        .select("t.*", "m.movie_id", "mt.is_showing")
+        .where({"mt.movie_id": movieId});
+    }
+
     return knex("movies")
         .select("*")
         .where({ "movie_id": movieId })
         .first();
+
 };
 
 // if req.query.is_movies is true query the db for movies that are showing otherwise select all movies
 function list(query) {
+
    if (query){
        return knex("movies as m")
         .join("movies_theaters as mt", "m.movie_id", "mt.movie_id")
@@ -20,6 +31,7 @@ function list(query) {
     } else {
         return knex("movies").select("*");
     };
+
 };
 
 module.exports = {
