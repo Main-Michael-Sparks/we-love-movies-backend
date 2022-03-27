@@ -3,17 +3,19 @@ const service = require("./movies.service");
 
 // is_showing query validator
 function validateIsShowingQuery(req, res, next){
+    if (req.query.is_showing === undefined) {
+        return next();
+    };
+
     if (req.query.is_showing === "true"){
         res.locals.is_showing = true;
-        next();
-    } else if (req.query.is_showing === undefined) {
-        next()
-    } else {
-        next({
-            status: 400,
-            message: `invalid query: ${req.query.is_showing}`
-        });
+       return next();
     };
+
+    next({
+        status: 400,
+        message: `invalid query: ${req.query.is_showing}`
+    });
 };
 
 // movie_id validator; id stored in locals for use in other functions
