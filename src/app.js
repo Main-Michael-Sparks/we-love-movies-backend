@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
-const moviesRouter = require("./movies/movies.router")
+const moviesRouter = require("./movies/movies.router");
 
 app.use(express.json());
 

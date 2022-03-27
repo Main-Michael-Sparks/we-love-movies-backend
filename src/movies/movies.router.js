@@ -10,16 +10,16 @@ router.route("/:movieId/theaters")
 // route handler for /movies/:movieId
 router.route("/:movieId")
     .get(controller.read)
-    .all(methodNotAllowed)
+    .all(methodNotAllowed);
 
 // route handler for /movies?is_showing
 router.route("/:movies?")
     .get(controller.list)
-    .all(methodNotAllowed)
+    .all(methodNotAllowed);
 
 // route handler for /movies
 router.route("/")
     .get(controller.list)
-    .all(methodNotAllowed)
+    .all(methodNotAllowed);
 
 module.exports = router; 

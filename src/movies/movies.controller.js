@@ -34,8 +34,9 @@ async function validateMovieId(req, res, next) {
 
 async function read(_req, res, _next) {
 
-    res.json({ data: res.locals.movie })
-}
+    res.json({ data: res.locals.movie });
+
+};
 
 async function list(_req, res, _next){
     res.json({ 
@@ -46,4 +47,4 @@ async function list(_req, res, _next){
 module.exports = {
     list: [validateIsShowingQuery,asyncErrorBoundary(list)],
     read: [asyncErrorBoundary(validateMovieId),asyncErrorBoundary(read)]
-}
+};

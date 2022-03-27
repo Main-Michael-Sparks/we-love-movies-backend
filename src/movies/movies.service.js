@@ -19,10 +19,10 @@ function list(query) {
         .orderBy("m.movie_id")
     } else {
         return knex("movies").select("*");
-    }
-}
+    };
+};
 
 module.exports = {
     list,
     read
-}
+};
