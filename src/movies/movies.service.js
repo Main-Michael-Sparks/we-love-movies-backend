@@ -1,6 +1,6 @@
 const knex = require("../db/connection");
 
-// query the db for a movie based on movie_id
+// query the db for a movie based on movie_id and or route
 function read(movieId, currentRoute) {
 
     if (currentRoute === "movie") {
@@ -8,7 +8,7 @@ function read(movieId, currentRoute) {
             .select("*")
             .where({ "movie_id": movieId })
             .first();
-    }
+    };
 
     if (currentRoute === "theaters") {
         return knex("movies as m")
@@ -16,7 +16,8 @@ function read(movieId, currentRoute) {
             .join("theaters as t", "mt.theater_id", "t.theater_id")
             .select("t.*", "m.movie_id", "mt.is_showing")
             .where({"mt.movie_id": movieId});
-    }
+    };
+
     if (currentRoute === "reviews") {
         return knex("reviews as r")
             .join("critics as c", "r.critic_id", "c.critic_id")
@@ -33,7 +34,7 @@ function read(movieId, currentRoute) {
                 "c.organization_name as cri_organization_name"
             )
             .where({"r.movie_id": movieId});
-    }
+    };
 
 };
 
