@@ -23,31 +23,52 @@ function validateIsShowingQuery(req, res, next){
 // movie_id validator; id stored in locals for use in other functions
 async function validateMovieId(req, res, next) {
 
-    const path = req.path;
-    const route = `/${req.params.movieId}/theaters`;
     res.locals.movieId = Number(req.params.movieId);
 
     if (res.locals.movieId){
-        res.locals.movie = await service.read(res.locals.movieId, false);
+        res.locals.databaseRes = await service.read(res.locals.movieId, "movie");
     };
 
-    if (res.locals.movie && path === route) {
-        res.locals.theaters = await service.read(res.locals.movieId, true)
+    if (res.locals.databaseRes) {
         return next();
-    };
-
-    if (res.locals.movie) {
-       return next();
     };
 
     next({ status: 404, message: 'Movie cannot be found.' });
 };
 
-async function read(_req, res, _next) {
+async function read(req, res, _next) {
 
-    res.json({ 
-        data: res.locals.theaters? res.locals.theaters:res.locals.movie
-    });
+    const path = req.path;
+    const theaterRoute = `/${res.locals.movieId}/theaters`;
+    const reviewsRoute = `/${res.locals.movieId}/reviews`;
+    
+    if (path === theaterRoute) {
+        res.locals.databaseRes = await service.read(res.locals.movieId, "theaters");
+    };
+
+    if (path === reviewsRoute) {
+        const initalDatabaseRes = await service.read(res.locals.movieId, "reviews");
+        res.locals.databaseRes = initalDatabaseRes.reduce((array, object) =>{
+                const reformattedDatabaseRes = {
+                    review_id: object.rev_review_id,
+                    content: object.rev_content,
+                    score: object.rev_score,
+                    critic_id: object.critic_id,
+                    movie_id: object.rev_movie_id,
+                    created_at: object.rev_created_at,
+                    updated: object.rev_updated_at,
+                    critic: {
+                        organization_name: object.cri_organization_name,
+                        preferred_name: object.cri_preferred_name,
+                        surname: object.cri_surname,
+                    }
+                };
+                array.push(reformattedDatabaseRes);
+                return array;
+            },[]);
+    };
+
+    res.json({  data: res.locals.databaseRes });
 
 };
 
@@ -62,4 +83,4 @@ async function list(_req, res, _next){
 module.exports = {
     list: [validateIsShowingQuery,asyncErrorBoundary(list)],
     read: [asyncErrorBoundary(validateMovieId),asyncErrorBoundary(read)]
-};
+}; 
