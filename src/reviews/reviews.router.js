@@ -4,6 +4,7 @@ const methodNotAllowed = require("../errors/methodNotAllowed");
 
 // route handler for /reviews/:reviewId
 router.route("/:reviewId")
+    .put(controller.update)
     .delete(controller.delete)
     .all(methodNotAllowed);
 
