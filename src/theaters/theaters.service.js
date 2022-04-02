@@ -15,8 +15,7 @@ class Theater {
 
   };
 
-  movie(rating, runtime_in_minutes, title, image_url, movie_id) {
-
+  movie({ rating, runtime_in_minutes, title, image_url, movie_id }) {
     return this.movies = [
       ...this.movies,
       {
@@ -28,7 +27,7 @@ class Theater {
       },
     ];
 
-  }
+  };
 
 };
 
@@ -46,79 +45,45 @@ function taileredReducer(databaseArr){
             dbElement.zip
             );
 
+        const movObj = {
+          "rating": dbElement.rating, 
+          "runtime_in_minutes":dbElement.runtime_in_minutes, 
+          "title": dbElement.title, 
+          "image_url": dbElement.image_url, 
+          "movie_id": dbElement.movie_id
+        };
+
             if (dbElement.theater_id === 1){
                 if(arr.length < 1) {
-                    theater.movie(
-                      dbElement.rating, 
-                      dbElement.runtime_in_minutes, 
-                      dbElement.title, 
-                      dbElement.image_url, 
-                      dbElement.movie_id
-                      )
-                    arr.push(theater) 
-                    return arr
-                }
-
-               arr[0].movies.push(
-                 ...theater.movie(
-                      dbElement.rating, 
-                      dbElement.runtime_in_minutes, 
-                      dbElement.title, 
-                      dbElement.image_url,
-                      dbElement.movie_id
-                ));
-
+                    theater.movie(movObj);
+                    arr.push(theater);
+                    return arr;
+                };
+               arr[0].movies.push(...theater.movie(movObj));
                return arr;
-            }
+            };
 
             if (dbElement.theater_id === 2){
                 if(arr.length < 2) {
-                    theater.movie(
-                      dbElement.rating, 
-                      dbElement.runtime_in_minutes, 
-                      dbElement.title,
-                      dbElement.image_url,
-                      dbElement.movie_id
-                      )
-                    arr.push(theater) 
-                    return arr
+                    theater.movie(movObj);
+                    arr.push(theater);
+                    return arr;
                 }
-
-               arr[1].movies.push(
-                 ...theater.movie(
-                    dbElement.rating, 
-                    dbElement.runtime_in_minutes, 
-                    dbElement.title,
-                    dbElement.image_url,
-                    dbElement.movie_id
-                ));
+               arr[1].movies.push(...theater.movie(movObj));
                return arr;
             }
 
             if (dbElement.theater_id === 3){
                 if(arr.length < 3) {
-                    theater.movie(
-                      dbElement.rating, 
-                      dbElement.runtime_in_minutes, 
-                      dbElement.title,
-                      dbElement.image_url,
-                      dbElement.movie_id
-                    )
-                    arr.push(theater) 
-                    return arr
+                    theater.movie(movObj);
+                    arr.push(theater);
+                    return arr;
                 }
-
-               arr[2].movies.push(
-                 ...theater.movie(
-                    dbElement.rating, 
-                    dbElement.runtime_in_minutes, 
-                    dbElement.title,
-                    dbElement.image_url,
-                    dbElement.movie_id
-                ));
+               arr[2].movies.push(...theater.movie(movObj));
                return arr;
             }
-        return arr
+
+        return arr;
 },[]);
 
 };
