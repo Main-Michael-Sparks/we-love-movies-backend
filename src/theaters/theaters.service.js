@@ -15,7 +15,7 @@ class Theater {
 
   };
 
-  movie(rating, runtime_in_minutes, title) {
+  movie(rating, runtime_in_minutes, title, image_url, movie_id) {
 
     return this.movies = [
       ...this.movies,
@@ -23,6 +23,8 @@ class Theater {
         "rating": rating,
         "runtime_in_minutes": runtime_in_minutes,
         "title": title,
+        "image_url": image_url,
+        "movie_id": movie_id
       },
     ];
 
@@ -46,40 +48,76 @@ function taileredReducer(databaseArr){
 
             if (dbElement.theater_id === 1){
                 if(arr.length < 1) {
-                    console.log(arr.length)
-                    theater.movie(dbElement.rating, dbElement.runtime_in_minutes, dbElement.title)
+                    theater.movie(
+                      dbElement.rating, 
+                      dbElement.runtime_in_minutes, 
+                      dbElement.title, 
+                      dbElement.image_url, 
+                      dbElement.movie_id
+                      )
                     arr.push(theater) 
                     return arr
                 }
 
-               arr[0].movies.push(...theater.movie(dbElement.rating, dbElement.runtime_in_minutes, dbElement.title));
+               arr[0].movies.push(
+                 ...theater.movie(
+                      dbElement.rating, 
+                      dbElement.runtime_in_minutes, 
+                      dbElement.title, 
+                      dbElement.image_url,
+                      dbElement.movie_id
+                ));
+
                return arr;
             }
 
             if (dbElement.theater_id === 2){
                 if(arr.length < 2) {
-                    console.log(arr.length)
-                    theater.movie(dbElement.rating, dbElement.runtime_in_minutes, dbElement.title)
+                    theater.movie(
+                      dbElement.rating, 
+                      dbElement.runtime_in_minutes, 
+                      dbElement.title,
+                      dbElement.image_url,
+                      dbElement.movie_id
+                      )
                     arr.push(theater) 
                     return arr
                 }
 
-               arr[1].movies.push(...theater.movie(dbElement.rating, dbElement.runtime_in_minutes, dbElement.title));
+               arr[1].movies.push(
+                 ...theater.movie(
+                    dbElement.rating, 
+                    dbElement.runtime_in_minutes, 
+                    dbElement.title,
+                    dbElement.image_url,
+                    dbElement.movie_id
+                ));
                return arr;
             }
 
             if (dbElement.theater_id === 3){
                 if(arr.length < 3) {
-                    console.log(arr.length)
-                    theater.movie(dbElement.rating, dbElement.runtime_in_minutes, dbElement.title)
+                    theater.movie(
+                      dbElement.rating, 
+                      dbElement.runtime_in_minutes, 
+                      dbElement.title,
+                      dbElement.image_url,
+                      dbElement.movie_id
+                    )
                     arr.push(theater) 
                     return arr
                 }
 
-               arr[2].movies.push(...theater.movie(dbElement.rating, dbElement.runtime_in_minutes, dbElement.title));
+               arr[2].movies.push(
+                 ...theater.movie(
+                    dbElement.rating, 
+                    dbElement.runtime_in_minutes, 
+                    dbElement.title,
+                    dbElement.image_url,
+                    dbElement.movie_id
+                ));
                return arr;
             }
-
         return arr
 },[]);
 
