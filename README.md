@@ -13,7 +13,7 @@ Movies endpoint(s):
 *  
 Reviews endpoint:
 * /reviews/:reviewId - provides an "update" or  "delete" of a specific review depending on the request method provided. 
-* 
+
 Theaters endpoint: 
 * /theaters - provides a "list" of theaters with all movies playing at the theater. 
 
