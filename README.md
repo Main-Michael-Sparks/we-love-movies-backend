@@ -10,7 +10,7 @@ Movies endpoint(s):
 * /movies/:moveId - provides a "read" of a specific movie and its related data fields. 
 * /movies/:movieId/theaters - provides a "read" of a specific movie to access theaters currently playing  that movie. 
 * /movies/:movieId/reviews - provides a "read" of a specific movie to access reviews for that movie.
-*  
+
 Reviews endpoint:
 * /reviews/:reviewId - provides an "update" or  "delete" of a specific review depending on the request method provided. 
 
